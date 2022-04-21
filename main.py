@@ -3,6 +3,7 @@ import os
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import QSize, Qt
+from PreviewWindow import PreviewWindow
 import time as tm
 
 class MainPage(QWidget):
@@ -79,6 +80,7 @@ class MainPage(QWidget):
                 background-color: #FEBB61;
             }
         """)
+        start_btn.clicked.connect(self.open_preview)
 
         grid = QGridLayout()
         self.setLayout(grid)
@@ -99,6 +101,10 @@ class MainPage(QWidget):
 
     def delete_folder(self):
         self.file_list.clear()
+
+    def open_preview(self):
+        win = PreviewWindow()
+        r = win.showModal()
 
 
 class MainWindow(QMainWindow):
