@@ -5,11 +5,14 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import QSize, Qt
 from PreviewWindow import PreviewWindow
 import time as tm
+from models.dataprocess import data_processing
 
 class MainPage(QWidget):
 
     def __init__(self):
         super().__init__()
+
+        f_list = []
 
         label = QLabel('정리할 폴더를 선택하세요.', self)
         label.setStyleSheet("margin: 3em 0em 0em 9em; font: bold; font-size: 20px")
@@ -98,12 +101,15 @@ class MainPage(QWidget):
         for file in f_list:
             exist = self.file_list.toPlainText()
             self.file_list.setText(exist + dname + '/' + file + '\n')
+        
 
     def delete_folder(self):
         self.file_list.clear()
 
-    def open_preview(self):
+    def open_preview(self, f_list):
         win = PreviewWindow()
+        data_processing(f_list)
+
         r = win.showModal()
 
 
