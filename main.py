@@ -83,7 +83,7 @@ class MainPage(QWidget):
                 background-color: #FEBB61;
             }
         """)
-        start_btn.clicked.connect(self.open_preview, f_list)
+        start_btn.clicked.connect(self.open_preview)
 
         grid = QGridLayout()
         self.setLayout(grid)
