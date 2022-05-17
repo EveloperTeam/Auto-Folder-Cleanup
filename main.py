@@ -8,11 +8,11 @@ import time as tm
 from models.dataprocess import data_processing
 
 class MainPage(QWidget):
-
     def __init__(self):
         super().__init__()
 
-        f_list = []
+        self.f_list = []
+        self.dir = []
 
         label = QLabel('정리할 폴더를 선택하세요.', self)
         label.setStyleSheet("margin: 3em 0em 0em 9em; font: bold; font-size: 20px")
@@ -96,19 +96,27 @@ class MainPage(QWidget):
 
     def open_folder(self):
         dname = QFileDialog.getExistingDirectory(self, 'Open file', './')
-        f_list = os.listdir(dname)
-        print(f_list)
-        for file in f_list:
-            exist = self.file_list.toPlainText()
-            self.file_list.setText(exist + dname + '/' + file + '\n')
+        if(dname not in self.dir):
+            f_list = os.listdir(dname)
+            self.dir.append(dname)
+            self.f_list.append(f_list)
+            #print(f_list)
+            for file in f_list:
+                exist = self.file_list.toPlainText()
+                self.file_list.setText(exist + file + '\n')
+
+		    	#self.file_list.setText(exist + dname + '/' + file + '\n') dname == 경로
         
 
     def delete_folder(self):
         self.file_list.clear()
+        self.f_list = []
+        self.dir = []
 
-    def open_preview(self, f_list):
+    def open_preview(self):
         win = PreviewWindow()
-        data_processing(f_list)
+        print(self.f_list)
+        data_processing(self.dir, self.f_list)
 
         r = win.showModal()
 
