@@ -1,16 +1,21 @@
-import sys
 import os
+import sys
+import time as tm
 
 import pandas as pd
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
 from PyQt5.QtCore import QSize, Qt
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
+
+from models.dataprocess import data_processing
+from models.translation import lan_analysis, lan_translation, trans_test
 from PreviewWindow import PreviewWindow
 import time as tm
 from models.dataprocess import data_processing
 from models.translation import lan_analysis, lan_translation, trans_test
 from models.embedding import embedding
 from models.clustering import elbow, clustering_question, distance_from_centeroid
+
 
 class MainPage(QWidget):
     def __init__(self):
