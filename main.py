@@ -9,6 +9,7 @@ from PreviewWindow import PreviewWindow
 import time as tm
 from models.dataprocess import data_processing
 from models.translation import lan_analysis, lan_translation
+from models.embedding import embedding
 
 class MainPage(QWidget):
     def __init__(self):
@@ -108,8 +109,7 @@ class MainPage(QWidget):
                 exist = self.file_list.toPlainText()
                 self.file_list.setText(exist + file + '\n')
 
-		    	#self.file_list.setText(exist + dname + '/' + file + '\n') dname == 경로
-        
+                # self.file_list.setText(exist + dname + '/' + file + '\n') dname == 경로
 
     def delete_folder(self):
         self.file_list.clear()
@@ -123,13 +123,15 @@ class MainPage(QWidget):
 
 
         data = pd.read_csv("./data.csv")
-        print(data)
+        # print(data)
         self.f_list = data['After'].values.tolist() # data.csv의 [1]번째 열을 리스트로 변환
         lan_list = lan_analysis(self.f_list)
         trans_list = lan_translation(self.f_list, lan_list)
-        print("trans_list: ", trans_list)
+        # print("trans_list: ", trans_list)
         data['trans'] = trans_list
         data.to_csv("./data.csv", index=False)
+
+        embedding()
 
 
         r = win.showModal()

@@ -4,6 +4,7 @@ from nltk.cluster import KMeansClusterer
 import nltk
 import numpy as np
 import pandas as pd
+from scipy.spatial import distance_matrix
 
 
 def clustering_question(data, NUM_ClUSTERS):
@@ -27,5 +28,5 @@ def distance_from_centeroid(row):
 
 
 
-nlp = spacy.load("en_core_web_trf")
+# nlp = spacy.load("en_core_web_ trf")
 
