@@ -1,5 +1,33 @@
 import requests
+import json
+from kakaotrans import Translator
 
+def trans_test(f_list):
+   translator = Translator()
+
+   material_result_list = []
+
+   for i in range(len(f_list)) :
+      material_result_list.append(translator.translate(f_list[i], src='kr', tgt='en'))
+
+   return(material_result_list)
+
+def extension_del(f_list):
+	extension = "jpg png docx pdf"
+	extension = extension.split(' ')
+	file_names = []
+	
+	for i in f_list:
+		file_names.append(extension_del_file(i))
+
+	return file_names
+
+def extension_del_file(file):
+	text = file.split('.')
+	name = ''
+	for j in range(len(text)-1):
+		name = name + text[j]
+	return name
 
 def lan_analysis(f_list):
 	lan_list = []
@@ -9,7 +37,7 @@ def lan_analysis(f_list):
 		queryString = {
 			"query" : f_list[i]        
 		}
-		header = {"Authorization": "KakaoAK deeada20c669c0bc84e8e7b374315ace"}
+		header = {"Authorization": "KakaoAK c99415b40a052a6127cb280efbe5690f"}
 		r = requests.get(url, headers = header, params = queryString)
 		
 		r_dic = r.json()
@@ -29,6 +57,7 @@ def lan_translation(f_list, lan_list):
 		queryString = {
 			"query" : f_list[i],
 			"src_lang" : lan_list[i],
+			#"src_lang" : "kr", #단어 언어 선택 X
 			"target_lang" : "en"
 		}
 		
