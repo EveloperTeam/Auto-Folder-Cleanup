@@ -8,7 +8,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
 from models.dataprocess import data_processing
-from models.translation import lan_analysis, lan_translation
+from models.translation import lan_analysis, lan_translation, trans_test
 from PreviewWindow import PreviewWindow
 from models.embedding import embedding
 
@@ -127,8 +127,9 @@ class MainPage(QWidget):
         data = pd.read_csv("./data.csv")
         # print(data)
         self.f_list = data['no-ext'].values.tolist() # data.csv의 [1]번째 열을 리스트로 변환
-        lan_list = lan_analysis(self.f_list)
-        trans_list = lan_translation(self.f_list, lan_list)
+        #lan_list = lan_analysis(self.f_list)
+        #trans_list = lan_translation(self.f_list, lan_list)
+        trans_lsit = trans_test(self.list)
         # print("trans_list: ", trans_list)
         data['trans'] = trans_list
         data.to_csv("./data.csv", index=False)
