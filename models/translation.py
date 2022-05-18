@@ -1,24 +1,5 @@
 import requests
-import json
-from kakaotrans import Translator
 
-
-def extension_del(f_list):
-	extension = "jpg png docx pdf"
-	extension = extension.split(' ')
-	file_names = []
-	
-	for i in f_list:
-		file_names.append(extension_del_file(i))
-
-	return file_names
-
-def extension_del_file(file):
-	text = file.split('.')
-	name = ''
-	for j in range(len(text)-1):
-		name = name + text[j]
-	return name
 
 def lan_analysis(f_list):
 	lan_list = []
@@ -48,7 +29,6 @@ def lan_translation(f_list, lan_list):
 		queryString = {
 			"query" : f_list[i],
 			"src_lang" : lan_list[i],
-			#"src_lang" : "kr", #단어 언어 선택 X
 			"target_lang" : "en"
 		}
 		

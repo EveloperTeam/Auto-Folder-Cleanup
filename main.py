@@ -124,7 +124,7 @@ class MainPage(QWidget):
 
         data = pd.read_csv("./data.csv")
         # print(data)
-        self.f_list = data['After'].values.tolist() # data.csv의 [1]번째 열을 리스트로 변환
+        self.f_list = data['no-ext'].values.tolist() # data.csv의 [1]번째 열을 리스트로 변환
         lan_list = lan_analysis(self.f_list)
         trans_list = lan_translation(self.f_list, lan_list)
         # print("trans_list: ", trans_list)
