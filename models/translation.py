@@ -1,5 +1,7 @@
 import requests
 import json
+from kakaotrans import Translator
+
 
 def extension_del(f_list):
 	extension = "jpg png docx pdf"
@@ -54,9 +56,12 @@ def lan_translation(f_list, lan_list):
 		
 		r = requests.get(url, headers = header, params = queryString)
 		r_dic = r.json()
-		trans_list.append(r_dic["translated_text"][0][0])
-
+		if 'translated_text' in r_dic:
+			trans_list.append(r_dic["translated_text"][0][0])
+		else:
+			trans_list.append(f_list[i])
 	return trans_list
+
 
 '''
 
