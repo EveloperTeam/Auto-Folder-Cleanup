@@ -29,11 +29,16 @@ class PreviewWindow(QDialog):
             item = QStandardItem(icon, file)
             parent.appendRow(item)
 
-    def importDataRight(self, data, root=None):
+    def importDataRight(self, data, dir_list, root=None):
         self.model.setRowCount(0)
         if root is None:
             root = self.model.invisibleRootItem()
         parent = root
+
+        for dir in dir_list:
+            icon = QIcon('./img/folder.png')
+            item = QStandardItem(icon, dir)
+            parent.appendRow(item)
 
         for i in range(len(data)):
             folder = QStandardItem(QIcon('./img/folder.png'), '폴더' + str(i+1))
@@ -132,7 +137,7 @@ class PreviewWindow(QDialog):
 
         # Button 설정
         btnOK = QPushButton()
-        btnOK.clicked.connect(lambda : self.onOKButtonClicked(data, self.root_dir))
+        btnOK.clicked.connect(lambda : self.onOKButtonClicked(data))
         btnOK.setIcon(QIcon('./img/check.png'))
         btnOK.setStyleSheet("border-radius:15px; border:2px solid black; background-color:#00DC58; padding:20px;")
 
@@ -177,7 +182,7 @@ class PreviewWindow(QDialog):
         RightTreeView.header().setDefaultSectionSize(200)
         RightTreeView.header().setFixedHeight(40)
         RightTreeView.setModel(self.model)
-        self.importDataRight(data)
+        self.importDataRight(data, dir_list)
 
         RightTreeView.setSelectionMode(RightTreeView.SingleSelection)
         RightTreeView.setDragDropMode(QAbstractItemView.InternalMove)
@@ -216,8 +221,7 @@ class PreviewWindow(QDialog):
 
         self.setLayout(layout)
 
-    def onOKButtonClicked(self, data, root_dir):
-        '''
+    def onOKButtonClicked(self, data):
         for i in range(len(data)):
             folder_path = self.root_dir + '/' + '폴더' + str(i+1)
             try:
@@ -230,7 +234,6 @@ class PreviewWindow(QDialog):
                 origin_file_path = self.root_dir + '/' + data[i][j]
                 new_file_path = folder_path + '/' + data[i][j]
                 os.replace(origin_file_path, new_file_path)
-        '''
         self.accept()
 
     def onCancelButtonClicked(self):

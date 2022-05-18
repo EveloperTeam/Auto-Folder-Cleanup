@@ -21,7 +21,8 @@ from models.clustering import elbow, clustering_question, distance_from_centeroi
 class MainPage(QWidget):
     def __init__(self):
         super().__init__()
-        f_list = []
+        self.f_list = []
+        self.dir = []
         dname = os.getcwd()
 
         label = QLabel('정리할 폴더를 선택하세요.', self)
@@ -105,13 +106,16 @@ class MainPage(QWidget):
         grid.addWidget(start_btn, 2, 0, 1, 5, Qt.AlignCenter)
 
     def open_folder(self):
+
         self.dname = QFileDialog.getExistingDirectory(self, 'Open file', './')
-        f_list = os.listdir(self.dname)
-        print(f_list)
-        for file in f_list:
-            exist = self.file_list.toPlainText()
-            self.file_list.setText(exist + self.dname + '/' + file + '\n')
-        
+        if(self.dname not in self.dir):
+            f_list = os.listdir(self.dname)
+            self.dir.append(self.dname)
+            self.f_list.append(f_list)
+            #print(f_list)
+            for file in f_list:
+                exist = self.file_list.toPlainText()
+                self.file_list.setText(exist + file + '\n')
 
                 # self.file_list.setText(exist + dname + '/' + file + '\n') dname == 경로
 
@@ -121,9 +125,7 @@ class MainPage(QWidget):
         self.dir = []
 
     def open_preview(self, f_list):
-        win = PreviewWindow(self.dname)
-        data_processing(f_list)
-
+        data_processing(self.dir, self.f_list)
 
         data = pd.read_csv("./data.csv")
         # print(data)
@@ -153,7 +155,8 @@ class MainPage(QWidget):
         data['distance_from_centroid'] = distance
 
         data.to_csv('./data.csv', index=False)
-        
+
+        win = PreviewWindow(self.dname)
         r = win.showModal()
         if r:
             confirm = ConfirmDialog('정리가 완료되었습니다!')
