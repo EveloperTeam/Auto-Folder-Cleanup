@@ -1,15 +1,17 @@
-import sys
 import os
+import sys
+import time as tm
 
 import pandas as pd
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
 from PyQt5.QtCore import QSize, Qt
-from PreviewWindow import PreviewWindow
-import time as tm
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
+
 from models.dataprocess import data_processing
 from models.translation import lan_analysis, lan_translation
+from PreviewWindow import PreviewWindow
 from models.embedding import embedding
+
 
 class MainPage(QWidget):
     def __init__(self):

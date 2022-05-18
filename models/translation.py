@@ -1,4 +1,5 @@
 import requests
+from kakaotrans import Translator
 
 
 def lan_analysis(f_list):
@@ -42,6 +43,15 @@ def lan_translation(f_list, lan_list):
 			trans_list.append(f_list[i])
 	return trans_list
 
+def trans_test(f_list):
+	translator = Translator()
+
+	material_result_list = []
+
+	for i in range(len(f_list)) :
+		material_result_list.append(translator.translate(f_list[i], src='kr', tgt='en'))
+
+	return(material_result_list)
 
 '''
 
