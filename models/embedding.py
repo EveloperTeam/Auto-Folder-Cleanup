@@ -32,3 +32,5 @@ def embedding():
     emb_list = df['emb'].values.tolist()
     data['emb'] = emb_list
     data.to_csv("data.csv", index=False)
+
+    return df
