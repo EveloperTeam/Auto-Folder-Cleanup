@@ -8,8 +8,9 @@ from PyQt5.QtCore import QSize, Qt
 from PreviewWindow import PreviewWindow
 import time as tm
 from models.dataprocess import data_processing
-from models.translation import lan_analysis, lan_translation
+from models.translation import lan_analysis, lan_translation, trans_test
 from models.embedding import embedding
+from models.clustering import elbow, clustering_question, distance_from_centeroid
 
 class MainPage(QWidget):
     def __init__(self):
@@ -125,15 +126,32 @@ class MainPage(QWidget):
         data = pd.read_csv("./data.csv")
         # print(data)
         self.f_list = data['no-ext'].values.tolist() # data.csv의 [1]번째 열을 리스트로 변환
-        lan_list = lan_analysis(self.f_list)
-        trans_list = lan_translation(self.f_list, lan_list)
+        # lan_list = lan_analysis(self.f_list)
+        # trans_list = lan_translation(self.f_list, lan_list)
+        trans_list = trans_test(self.f_list)
         # print("trans_list: ", trans_list)
         data['trans'] = trans_list
         data.to_csv("./data.csv", index=False)
 
-        embedding()
+        df = embedding()
 
+        embedding_list = df['emb'].tolist()
+        folder_num = elbow(embedding_list)
+        # print(embedding_list[:5])
+        clustering_question(df, folder_num)
+        df['distance_from_centroid'] = df.apply(distance_from_centeroid, axis=1)
+        
+        # print(data['cluster'])
+        # print(data['distance_from_centroid'])
 
+        cluster = df['cluster'].values.tolist()
+        distance = df['distance_from_centroid'].values.tolist()
+
+        data['cluster'] = cluster
+        data['distance_from_centroid'] = distance
+
+        data.to_csv('./data.csv', index=False)
+        
         r = win.showModal()
 
 
