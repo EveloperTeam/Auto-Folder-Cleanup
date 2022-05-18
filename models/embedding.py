@@ -1,6 +1,3 @@
-
-# ! pip install nltk
-
 import nltk
 import spacy
 import pandas as pd
@@ -52,7 +49,7 @@ def clustering_question(data,NUM_CLUSTERS = 15):
     return data, assigned_clusters
 
 data, ac = clustering_question(data, 3)
-data
+# data
 
 def distance_from_centroid(row):
     # type of emb and centroid is different, hence using tolist below
@@ -61,4 +58,4 @@ def distance_from_centroid(row):
 # Compute centroid distance to the data
 data['distance_from_centroid'] = data.apply(distance_from_centroid, axis=1)
 
-data
+# data

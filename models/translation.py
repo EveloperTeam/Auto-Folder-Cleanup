@@ -42,9 +42,9 @@ def lan_translation(f_list, lan_list):
 	#카카오 번역 API이용한 번역
 	trans_list = []
 	url = "https://dapi.kakao.com/v2/translation/translate" 
-	for i in range(len(material_list)):
+	for i in range(len(f_list)):
 		queryString = {
-			"query" : material_list[i],
+			"query" : f_list[i],
 			"src_lang" : lan_list[i],
 			#"src_lang" : "kr", #단어 언어 선택 X
 			"target_lang" : "en"

@@ -5,6 +5,11 @@ name = "pypi"
 
 [packages]
 pyqt5 = "*"
+pandas = "*"
+requests = "*"
+nltk = "*"
+spacy = "*"
+scipy = "*"
 
 [dev-packages]
 
