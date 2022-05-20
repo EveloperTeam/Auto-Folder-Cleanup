@@ -180,9 +180,15 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle('Clean Folder')
         self.setWindowIcon(QIcon('./img/logo.png'))
-        self.setGeometry(300, 250, 1440, 1024) # (x, y, w, h)
+        self.resize(1440, 1024) # (x, y, w, h)
+        self.center()
         self.show()
 
+    def center(self):
+        qr = self.frameGeometry()
+        cp = QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

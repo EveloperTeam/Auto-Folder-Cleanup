@@ -49,7 +49,7 @@ class PreviewWindow(QDialog):
 
     def initUI(self):
         self.setWindowTitle('미리보기')
-        self.resize(1000, 1000)
+        self.resize(800, 800)
         self.setStyleSheet("background-color:#E5E9F5;")
         self.center()
 
